@@ -28,10 +28,10 @@ The goal is twofold - make it impossible to fail and let the API documentation f
 ## Installation
 
 Yarn
-`yarn add @jeeny-os/jeeny-react`
+`yarn add @jeeny/jeeny-react`
 
 npm
-`npm install @jeeny-os/jeeny-react`
+`npm install @jeeny/jeeny-react`
 
 ## Authentication
 
@@ -42,7 +42,7 @@ It includes the ApolloProvider component from the [React Apollo Client](https://
 You can get your free API key from the [Jeeny Hub under the Headless menu](https://hub.jeeny.com/headless/api-keys).
 
 ```
-import { JeenyProvider } from "@jeeny-os/jeeny-react"
+import { JeenyProvider } from "@jeeny/jeeny-react"
 <React.StrictMode>
 	<JeenyProvider apiKey="YOUR_API_KEY">
 		<App  />
