@@ -24,6 +24,7 @@ export type SingleQueryInputs = AppSingleQueryArgs &
   ProductSingleQueryArgs &
   StorageInventorySingleQueryArgs &
   StorageInventoryAreaLocationSingleQueryArgs &
+  StorageInventoryAreaRuleSingleQueryArgs &
   SupplierSingleQueryArgs &
   SupplierItemSingleQueryArgs &
   TeamSingleQueryArgs;
@@ -48,13 +49,13 @@ export type ListQueryInputs = AppListQueryArgs &
   OperatorListQueryArgs &
   ProductListQueryArgs &
   StorageInventoryAreaLocationListQueryArgs &
+  StorageInventoryAreaRuleListQueryArgs &
   SupplierListQueryArgs &
   SupplierItemListQueryArgs &
   TeamListQueryArgs;
 
-// had to remove itemGroup queries because of it's unique return type
-export type TableListQueryInputs = AppListQueryArgs &
-  ArrivalListQueryArgs &
+// had to remove app, itemGroup queries because of it's unique return type
+export type TableListQueryInputs = ArrivalListQueryArgs &
   BidListQueryArgs &
   CompanyUserListQueryArgs &
   DepartureListQueryArgs &
@@ -72,6 +73,7 @@ export type TableListQueryInputs = AppListQueryArgs &
   OperatorListQueryArgs &
   ProductListQueryArgs &
   StorageInventoryAreaLocationListQueryArgs &
+  StorageInventoryAreaRuleListQueryArgs &
   SupplierListQueryArgs &
   SupplierItemListQueryArgs &
   TeamListQueryArgs;
@@ -291,6 +293,14 @@ export type StorageInventoryAreaLocationSingleQueryArgs = {
 export type StorageInventoryAreaLocationListQueryArgs = {
   "storageInventoryAreaLocation.getStorageInventoryAreaLocationsPayload": JeenyTypes.QueryGetStorageInventoryAreaLocationsPayloadArgs;
   "storageInventoryAreaLocation.getStorageInventoryAreaLocations": JeenyTypes.QueryGetStorageInventoryAreaLocationsArgs;
+};
+
+export type StorageInventoryAreaRuleSingleQueryArgs = {
+  "storageInventoryAreaRule.getStorageInventoryAreaRule": JeenyTypes.QueryGetStorageInventoryAreaRuleArgs;
+};
+
+export type StorageInventoryAreaRuleListQueryArgs = {
+  "storageInventoryAreaRule.getStorageInventoryAreaRules": JeenyTypes.QueryGetStorageInventoryAreaRulesArgs;
 };
 
 export type SupplierSingleQueryArgs = {

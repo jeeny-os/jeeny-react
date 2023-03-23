@@ -20,6 +20,7 @@ export type ActionResults = AppActionResults &
   KitActionResults &
   ProductActionResults &
   StorageInventoryAreaLocationActionResults &
+  StorageInventoryAreaRuleActionResults &
   SupplierActionResults &
   SupplierItemActionResults &
   TeamActionResults;
@@ -169,6 +170,11 @@ export type StorageInventoryAreaLocationActionResults = {
   "storageInventoryAreaLocation.createStorageInventoryAreaLocation": JeenyTypes.StorageInventoryAreaLocation;
   "storageInventoryAreaLocation.saveStorageInventoryAreaLocation": JeenyTypes.StorageInventoryAreaLocation;
   "storageInventoryAreaLocation.deleteStorageInventoryAreaLocation": JeenyTypes.StorageInventoryAreaLocation;
+};
+
+export type StorageInventoryAreaRuleActionResults = {
+  "storageInventoryAreaRule.createStorageInventoryAreaRule": JeenyTypes.StorageInventoryAreaRule;
+  "storageInventoryAreaRule.updateStorageInventoryAreaRule": JeenyTypes.StorageInventoryAreaRule;
 };
 
 export type SupplierActionResults = {

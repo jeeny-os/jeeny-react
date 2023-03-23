@@ -25,7 +25,7 @@ export type QueryResultTypes = AppQueryResultTypes &
   ProductQueryResultTypes &
   StorageInventoryQueryResultTypes &
   StorageInventoryAreaLocationQueryResultTypes &
-  StorageInventoryQueryResultTypes &
+  StorageInventoryAreaRuleQueryResultTypes &
   SupplierQueryResultTypes &
   SupplierItemQueryResultTypes &
   TeamQueryResultTypes;
@@ -186,6 +186,11 @@ export type StorageInventoryAreaLocationQueryResultTypes = {
   "storageInventoryAreaLocation.getStorageInventoryAreaLocation": JeenyTypes.StorageInventoryAreaLocation;
   "storageInventoryAreaLocation.getStorageInventoryAreaLocationsPayload": JeenyTypes.StorageInventoryAreaLocationPayload;
   "storageInventoryAreaLocation.getStorageInventoryAreaLocations": JeenyTypes.StorageInventoryAreaLocation;
+};
+
+export type StorageInventoryAreaRuleQueryResultTypes = {
+  "storageInventoryAreaRule.getStorageInventoryAreaRule": JeenyTypes.StorageInventoryAreaRule;
+  "storageInventoryAreaRule.getStorageInventoryAreaRules": JeenyTypes.StorageInventoryAreaRule;
 };
 
 export type SupplierQueryResultTypes = {
