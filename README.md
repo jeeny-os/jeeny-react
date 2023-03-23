@@ -389,7 +389,7 @@ The following formatters are available for use.
 
 ## JavaScript SDK
 
-If you're not working with React you might be looking for our JavaScript/TypeScript SDK. [Check it out here.](https://github.com/jeeny-os/jeeny-js-sdk)
+If you're not working with React you might be looking for our JavaScript/TypeScript SDK. [Check it out here.](https://github.com/jeeny-os/jeeny-react)
 
 ## Author
 
@@ -400,7 +400,7 @@ If you're not working with React you might be looking for our JavaScript/TypeScr
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jeeny-os/jeeny-js-sdk/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jeeny-os/jeeny-react/issues).
 
 ## Show your support
 
@@ -409,7 +409,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2023 [Jeeny](https://github.com/jeeny-os).<br />
-This project is [MIT](https://github.com/jeeny-os/jeeny-js-sdk/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/jeeny-os/jeeny-react/blob/master/LICENSE) licensed.
 
 ---
 
