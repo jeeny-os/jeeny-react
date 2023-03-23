@@ -16,28 +16,32 @@ import {
   Control,
   UseFormSetFocus,
   FieldErrorsImpl,
+  UseFormGetFieldState,
 } from "react-hook-form";
 import * as JeenyTypes from "../types/graphql";
 import { Split } from "../types/helpers";
 import { FetchResult } from "@apollo/client";
 import { ActionResults } from "../types/actionResults";
+import { ActionInputs } from "../types/actionInputs";
 import { GraphQLError } from "graphql";
 
-export type JeenyFormProps<T> = {
-  [K in keyof T]-?: {
+export type JeenyFormProps = {
+  [K in keyof ActionInputs]-?: {
     /** The action will be one of the Jeeny API mutations */
     action: NonNullable<K>;
     /** If you are using a save mutation then you should absolutely provide default values to the form, most importantly the `id` value. If you are using a create mutation you may also provide default values if you wish. */
-    defaultValues?: Partial<T[K]>;
-    renderForm: (props: JeenyFormRenderProps<T[K], K>) => React.ReactElement;
+    defaultValues?: Partial<ActionInputs[K]>;
+    renderForm: (
+      props: JeenyFormRenderProps<ActionInputs[K], K>
+    ) => React.ReactElement;
     /** This component uses `react-hook-form` to help ensure you create forms that work with the Jeeny Layer. Please see the Jeeny React storybook docs for more information on how to use `react-hook-form` with this component. */
     reactHookFormProps?: Omit<UseFormProps, "defaultValues">;
   };
-}[keyof T];
+}[keyof ActionInputs];
 
-type JeenyFormFieldValues<T> = { [K in keyof T]: string };
+export type JeenyFormFieldValues<T> = { [K in keyof T]: string };
 
-export type JeenyFormRenderProps<T, K> = {
+export type JeenyFormRenderProps<T, K extends keyof ActionResults> = {
   /** Will call the Jeeny API for the specified action using the input type for `values` */
   submit: (
     onSuccess?: (
@@ -79,7 +83,7 @@ export type JeenyFormRenderProps<T, K> = {
   /** {@link https://react-hook-form.com/api/useform/unregister React Hook Form docs} */
   unregister: UseFormUnregister<JeenyFormFieldValues<T>>;
   /** {@link https://react-hook-form.com/api/useform/control React Hook Form docs} */
-  control: Control<JeenyFormFieldValues<T>, TContext>;
+  control: Control<JeenyFormFieldValues<T>, any>;
   /** {@link https://react-hook-form.com/api/useform/register React Hook Form docs} */
   register: UseFormRegister<JeenyFormFieldValues<T>>;
   /** {@link https://react-hook-form.com/api/useform/setfocus React Hook Form docs} */

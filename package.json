@@ -1,5 +1,5 @@
 {
-  "name": "jeeny-react",
+  "name": "@jeeny/jeeny-react",
   "version": "1.0.0",
   "description": "React components and API for Jeeny Headless",
   "repository": {
@@ -8,15 +8,18 @@
   },
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "bugs": {
     "url": "https://github.com/jeeny-os/jeeny-react/issues"
   },
   "homepage": "https://github.com/jeeny-os/jeeny-react#readme",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build": "tsc",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -39,13 +42,11 @@
     "@storybook/builder-vite": "^0.2.4",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "@types/lodash": "^4.14.191",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
-    "@vitejs/plugin-basic-ssl": "^0.1.2",
-    "@vitejs/plugin-react": "^2.1.0",
     "babel-loader": "^8.2.5",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
@@ -55,10 +56,6 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "storybook-addon-apollo-client": "^4.0.13",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0",
-    "vite-plugin-checker": "^0.5.1",
-    "vite-plugin-eslint": "^1.8.1",
-    "vite-tsconfig-paths": "^3.5.2"
+    "typescript": "^4.6.4"
   }
 }

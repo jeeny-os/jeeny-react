@@ -18,7 +18,7 @@ export type OmitDistributive<T, K extends PropertyKey> = T extends any
     : T
   : never;
 type Id<T> = {} & { [P in keyof T]: T[P] }; // Cosmetic use only makes the tooltips expad the type can be removed
-type OmitRecursively<T extends any, K extends PropertyKey> = Omit<
+export type OmitRecursively<T extends any, K extends PropertyKey> = Omit<
   { [P in keyof T]: OmitDistributive<T[P], K> },
   K
 >;
@@ -26,7 +26,7 @@ type OmitRecursively<T extends any, K extends PropertyKey> = Omit<
 // https://stackoverflow.com/a/68404823
 type DotPrefix<T extends string> = T extends "" ? "" : `.${T}`;
 
-type DotNestedKeys<T> = (
+export type DotNestedKeys<T> = (
   T extends object
     ? {
         [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<

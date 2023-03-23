@@ -3,7 +3,7 @@ import { useAction, UseActionSubmit } from "../hooks/useActions/useAction";
 import { ActionInputs } from "../types/actionInputs";
 import { JeenyActionProps } from "./actionTypes";
 
-export const JeenyAction: React.FC<JeenyActionProps<ActionInputs>> = ({
+export const JeenyAction: React.FC<JeenyActionProps> = ({
   action,
   renderChild,
 }) => {

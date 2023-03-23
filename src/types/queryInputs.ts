@@ -1,5 +1,5 @@
 import * as JeenyTypes from "./graphql";
-import { OmitRecursively } from "../types/helpers";
+import { OmitRecursively } from "./helpers";
 
 export type SingleQueryInputs = AppSingleQueryArgs &
   ArrivalSingleQueryArgs &
@@ -253,7 +253,6 @@ export type KioskListQueryArgs = {
 };
 
 export type KitSingleQueryArgs = {
-  "kit.getKitTemplateDetails": JeenyTypes.QueryGetKitTemplateDetailsArgs;
   "kit.getKitTemplateTree": JeenyTypes.QueryGetKitTemplateTreeArgs;
   "kit.getKitTemplateBom": JeenyTypes.QueryGetKitTemplateBomArgs;
   "kit.getKitTemplateDetails": JeenyTypes.QueryGetKitTemplateDetailsArgs;

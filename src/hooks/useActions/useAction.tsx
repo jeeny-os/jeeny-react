@@ -1,5 +1,4 @@
-import JeenyInputs from "../../types/actionInputs";
-import { useActionApp } from "./useActionApp";
+import * as JeenyInputs from "../../types/actionInputs";
 import { useActionArrival } from "./useActionArrival";
 import { useActionCompany } from "./useActionCompany";
 import { useActionDevice } from "./useActionDevice";
@@ -31,7 +30,6 @@ export type UseActionGeneric<T> = {
 export type UseActionSubmit = UseActionGeneric<JeenyInputs.ActionInputs>;
 
 export const useAction = () => {
-  const useAppSubmit = useActionApp();
   const useArrivalSubmit = useActionArrival();
   const useCompanySubmit = useActionCompany();
   const useDeviceSubmit = useActionDevice();
@@ -59,15 +57,6 @@ export const useAction = () => {
   const submit = async ({ action, values }: UseActionSubmit) => {
     try {
       let result = null;
-
-      result = await useAppSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.AppActionInputs>);
-
-      if (result) {
-        return result;
-      }
 
       result = await useArrivalSubmit({
         action,

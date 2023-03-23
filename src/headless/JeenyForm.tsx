@@ -6,7 +6,7 @@ import { ActionInputs } from "../types/actionInputs";
 import { useAction, UseActionSubmit } from "../hooks/useActions/useAction";
 import { GraphQLError } from "graphql";
 
-export const JeenyForm: React.FC<JeenyFormProps<ActionInputs>> = ({
+export const JeenyForm: React.FC<JeenyFormProps> = ({
   action,
   defaultValues,
   renderForm,
