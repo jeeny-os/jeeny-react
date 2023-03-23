@@ -1,6 +1,20 @@
-# jeeny-react
+<h1 align="center">Welcome to jeeny-react 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/jeeny-os/jeeny-react#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/jeeny-os/jeeny-react/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/jeeny-os/jeeny-react/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/jeeny-os/jeeny-react" />
+  </a>
+</p>
 
-The jeeny-react package provides an intuitive and typesafe way to interact with the Jeeny API. It is primarily designed to be "headless", just like the Jeeny API.
+> The jeeny-react package provides an intuitive and typesafe way to interact with the Jeeny API. It is primarily designed to be "headless", just like the Jeeny API.
+
+### 🏠 [Jeeny.com](https://jeeny.com)
 
 ## What is Jeeny?
 
@@ -16,6 +30,7 @@ Jeeny is a [warehouse management system and enterprise resource planning API](ht
 - [Actions](#actions)
 - [Hooks](#hooks)
 - [Formatters](#formatters)
+- [JavaScript SDK](#javascript-sdk)
 
 ## What is a headless front end?
 
@@ -371,3 +386,31 @@ The following formatters are available for use.
 | SupplierFormatter            | name                                                                                                                               |
 | SupplierItemFormatter        | supplier.name and/or item.partNumber and/or item.name                                                                              |
 | TeamFormatter                | name                                                                                                                               |
+
+## JavaScript SDK
+
+If you're not working with React you might be looking for our JavaScript/TypeScript SDK. [Check it out here.](https://github.com/jeeny-os/jeeny-js-sdk)
+
+## Author
+
+👤 **Jeeny**
+
+- Website: https://jeeny.com
+- Github: [@jeeny-os](https://github.com/jeeny-os)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/jeeny-os/jeeny-js-sdk/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2023 [Jeeny](https://github.com/jeeny-os).<br />
+This project is [MIT](https://github.com/jeeny-os/jeeny-js-sdk/blob/master/LICENSE) licensed.
+
+---
+
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
