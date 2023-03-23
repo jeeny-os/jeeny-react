@@ -21,7 +21,7 @@ export const useCompanyApi = (custom?: CompanyApi) => {
       data: getCompanyData,
       loading: getCompanyLoading,
     },
-    save: {
+    saveCompany: {
       mutation: saveCompany,
       data: saveCompanyData,
       loading: saveCompanyLoading,

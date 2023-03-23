@@ -1,28 +1,21 @@
 import * as JeenyTypes from "../../types/graphql";
 import { UseActionGeneric } from "./useAction";
-import { AppActionInputs } from "../../types/actionInputs";
-import { useAppApi } from "../../api";
+import { CompanyActionInputs } from "../../types/actionInputs";
+import { useCompanyApi } from "../../api";
 
-export const useActionApp = () => {
+export const useActionCompany = () => {
   const {
-    createCustomApp: { mutation: createApp },
-    saveCustomApp: { mutation: saveApp },
-  } = useAppApi();
+    saveCompany: { mutation: saveCompany },
+  } = useCompanyApi();
 
   const submit = async ({
     action,
     values,
-  }: UseActionGeneric<AppActionInputs>) => {
+  }: UseActionGeneric<CompanyActionInputs>) => {
     switch (action) {
-      case "app.createCustomApp": {
-        return await createApp({
-          variables: { data: values as JeenyTypes.CustomAppInput },
-        });
-      }
-
-      case "app.saveCustomApp": {
-        return await saveApp({
-          variables: { data: values as JeenyTypes.CustomAppUpdateInput },
+      case "company.saveCompany": {
+        return await saveCompany({
+          variables: { data: values as JeenyTypes.CompanyInput },
         });
       }
     }

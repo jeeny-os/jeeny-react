@@ -15,6 +15,7 @@ import {
   useItemStorageInventoryAreaRuleApi,
   useStorageInventoryAreaLocationApi,
   useStorageInventoryApi,
+  useStorageInventoryAreaRuleApi,
 } from "./storage/index";
 import { useKitApi } from "./kit/api";
 import { useInventoryAreaApi } from "./inventoryArea/api";
@@ -51,8 +52,9 @@ export {
   useDynamicContainerApi,
   useItemStorageInventoryAreaLocationApi,
   useItemStorageInventoryAreaRuleApi,
-  useStorageInventoryAreaLocationApi,
   useStorageInventoryApi,
+  useStorageInventoryAreaLocationApi,
+  useStorageInventoryAreaRuleApi,
 } from "./storage/index";
 export { useSupplierApi } from "./supplier/api";
 export { useSupplierItemApi } from "./supplierItem/api";
@@ -84,6 +86,7 @@ export const useApi = () => {
   const productApi = useProductApi();
   const storageInventoryApi = useStorageInventoryApi();
   const storageInventoryAreaLocationApi = useStorageInventoryAreaLocationApi();
+  const storageInventoryAreaRuleApi = useStorageInventoryAreaRuleApi();
   const supplierApi = useSupplierApi();
   const supplierItemApi = useSupplierItemApi();
   const teamApi = useTeamApi();
@@ -96,6 +99,7 @@ export const useApi = () => {
     companyUser: companyUserApi,
     departure: departureApi,
     device: deviceApi,
+    dynamicContainer: dynamicContainerApi,
     event: eventApi,
     facility: facilityApi,
     inventoryArea: inventoryAreaApi,
@@ -110,9 +114,9 @@ export const useApi = () => {
     instruction: instructionApi,
     operator: operatorApi,
     product: productApi,
-    dynamicContainer: dynamicContainerApi,
-    storageInventoryAreaLocation: storageInventoryAreaLocationApi,
     storageInventory: storageInventoryApi,
+    storageInventoryAreaLocation: storageInventoryAreaLocationApi,
+    storageInventoryAreaRule: storageInventoryAreaRuleApi,
     supplier: supplierApi,
     supplierItem: supplierItemApi,
     team: teamApi,

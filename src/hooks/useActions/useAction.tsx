@@ -1,6 +1,7 @@
 import JeenyInputs from "../../types/actionInputs";
 import { useActionApp } from "./useActionApp";
 import { useActionArrival } from "./useActionArrival";
+import { useActionCompany } from "./useActionCompany";
 import { useActionDevice } from "./useActionDevice";
 import { useActionDynamicContainer } from "./useActionDynamicContainer";
 import { useActionFacility } from "./useActionFacility";
@@ -15,6 +16,7 @@ import { useActionItemStorageInventoryAreaRule } from "./useActionItemStorageInv
 import { useActionKit } from "./useActionKit";
 import { useActionProduct } from "./useActionProduct";
 import { useActionStorageInventoryAreaLocation } from "./useActionStorageInventoryAreaLocation";
+import { useActionStorageInventoryAreaRule } from "./useActionStorageInventoryAreaRule";
 import { useActionSupplier } from "./useActionSupplier";
 import { useActionSupplierItem } from "./useActionSupplierItem";
 import { useActionTeam } from "./useActionTeam";
@@ -31,6 +33,7 @@ export type UseActionSubmit = UseActionGeneric<JeenyInputs.ActionInputs>;
 export const useAction = () => {
   const useAppSubmit = useActionApp();
   const useArrivalSubmit = useActionArrival();
+  const useCompanySubmit = useActionCompany();
   const useDeviceSubmit = useActionDevice();
   const useDynamicContainerSubmit = useActionDynamicContainer();
   const useFacilitySubmit = useActionFacility();
@@ -48,6 +51,7 @@ export const useAction = () => {
   const useProductSubmit = useActionProduct();
   const useStorageInventoryAreaLocationSubmit =
     useActionStorageInventoryAreaLocation();
+  const useStorageInventoryAreaRuleSubmit = useActionStorageInventoryAreaRule();
   const useSupplierSubmit = useActionSupplier();
   const useSupplierItemSubmit = useActionSupplierItem();
   const useTeamSubmit = useActionTeam();
@@ -69,6 +73,15 @@ export const useAction = () => {
         action,
         values,
       } as UseActionGeneric<JeenyInputs.ArrivalActionInputs>);
+
+      if (result) {
+        return result;
+      }
+
+      result = await useCompanySubmit({
+        action,
+        values,
+      } as UseActionGeneric<JeenyInputs.CompanyActionInputs>);
 
       if (result) {
         return result;
@@ -195,6 +208,15 @@ export const useAction = () => {
         action,
         values,
       } as UseActionGeneric<JeenyInputs.StorageInventoryAreaLocationActionInputs>);
+
+      if (result) {
+        return result;
+      }
+
+      result = await useStorageInventoryAreaRuleSubmit({
+        action,
+        values,
+      } as UseActionGeneric<JeenyInputs.StorageInventoryAreaRuleActionInputs>);
 
       if (result) {
         return result;

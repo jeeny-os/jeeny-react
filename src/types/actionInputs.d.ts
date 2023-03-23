@@ -20,6 +20,7 @@ export type ActionInputs = AppActionInputs &
   KitActionInputs &
   ProductActionInputs &
   StorageInventoryAreaLocationActionInputs &
+  StorageInventoryAreaRuleActionInputs &
   SupplierActionInputs &
   SupplierItemActionInputs &
   TeamActionInputs;
@@ -183,6 +184,11 @@ export type StorageInventoryAreaLocationActionInputs = {
     position: string;
     shelf: string;
   };
+};
+
+export type StorageInventoryAreaRuleActionInputs = {
+  "storageInventoryAreaRule.createStorageInventoryAreaRule": JeenyTypes.StorageInventoryAreaRuleInput;
+  "storageInventoryAreaRule.updateStorageInventoryAreaRule": JeenyTypes.StorageInventoryAreaRuleUpdateInput;
 };
 
 export type SupplierActionInputs = {
