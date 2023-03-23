@@ -347,6 +347,7 @@ The following hooks are available for use. `useApi` is also available to access 
 | useProductApi                          | [Product](https://dev.jeeny.com/data-and-logic/products)                                                                                                                    |
 | useStorageInventoryApi                 | StorageInventory                                                                                                                                                            |
 | useStorageInventoryAreaLocationApi     | [StorageInventoryAreaLocation, StorageInventoryAreaLocationPayload](https://dev.jeeny.com/data-and-logic/storage-locations)                                                 |
+| useStorageInventoryAreaRuleApi         | [StorageInventoryAreaRule](https://dev.jeeny.com/data-and-logic/storage-locations)                                                                                          |
 | useSupplierApi                         | [Supplier](https://dev.jeeny.com/data-and-logic/suppliers)                                                                                                                  |
 | useSupplierItemApi                     | [SupplierItem](https://dev.jeeny.com/data-and-logic/supplier-items)                                                                                                         |
 | useTeamApi                             | Team                                                                                                                                                                        |
@@ -389,7 +390,7 @@ The following formatters are available for use.
 
 ## JavaScript SDK
 
-If you're not working with React you might be looking for our JavaScript/TypeScript SDK. [Check it out here.](https://github.com/jeeny-os/jeeny-react)
+If you're not working with React you might be looking for our JavaScript/TypeScript SDK. [Check it out here.](https://github.com/jeeny-os/jeeny-js-sdk)
 
 ## Author
 
