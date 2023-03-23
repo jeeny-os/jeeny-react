@@ -1,24 +1,26 @@
 import React, { useEffect } from "react";
 import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "../config/apollo/apolloClient";
+import { createApolloClient } from "../config/apollo/apolloClient";
 
 type JeenyContextType = {};
-
 const defaultValue: JeenyContextType = {};
 
 export const JeenyContext = React.createContext<JeenyContextType>(defaultValue);
 
-interface JeenyContextProviderProps {
+export interface JeenyContextProviderProps {
   apiKey: string;
+  apiUrl?: string;
   children: React.ReactNode;
 }
 
 export const JeenyProvider: React.FC<JeenyContextProviderProps> = ({
   apiKey,
   children,
+  apiUrl,
 }) => {
-  useEffect(() => {
-    localStorage.setItem("jeenyAccessToken", apiKey);
+  const apolloClient = createApolloClient({
+    apiKey,
+    apiUrl,
   });
 
   return (

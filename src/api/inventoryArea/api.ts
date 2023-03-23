@@ -1,6 +1,4 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
-import flatten from "lodash/flatten";
-import { FacilityQueryResponse } from "../../types/graphql";
 import { InventoryAreaApi } from "./apiInterface";
 import {
   CREATE_INVENTORY_AREA,
@@ -62,26 +60,6 @@ export const useInventoryAreaApi = (custom?: InventoryAreaApi) => {
       mutation: deleteInventoryArea,
       data: deleteInventoryAreaData,
       loading: deleteInventoryAreaLoading,
-    },
-  };
-};
-
-const getInventoryAreasFromFacilities = (
-  data: { getFacilities: FacilityQueryResponse } | undefined
-) => {
-  const inventoryAreas = flatten(
-    (data?.getFacilities?.items || []).map((facility) =>
-      facility.inventoryAreas.map((inventoryArea) => ({
-        ...inventoryArea,
-        facilityId: facility.id,
-        facilityName: facility.name,
-      }))
-    )
-  );
-
-  return {
-    getInventoryAreas: {
-      items: inventoryAreas,
     },
   };
 };

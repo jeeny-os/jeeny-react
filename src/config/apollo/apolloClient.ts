@@ -6,28 +6,36 @@ import {
   from,
 } from "@apollo/client";
 
-const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_APOLLO_URL, // TODO from config
-});
+const DEFAULT_API_URL = "https://api.jeeny.com/headless";
 
-const authLink = new ApolloLink((operation, forward) => {
-  const authorization = localStorage.getItem("jeenyAccessToken");
+const getHttpLink = (apiUrl: string) =>
+  createHttpLink({
+    uri: apiUrl,
+  });
 
-  operation.setContext(({ headers }: any) => ({
-    headers: {
-      ...headers,
-      authorization,
-    },
-  }));
+const getAuthLink = (apiKey: string) =>
+  new ApolloLink((operation, forward) => {
+    operation.setContext(({ headers }: any) => ({
+      headers: {
+        ...headers,
+        authorization: apiKey,
+      },
+    }));
 
-  return forward(operation);
-});
+    return forward(operation);
+  });
 
-export const createApolloClient = () =>
+type CreateApolloClientParams = {
+  apiKey: string;
+  apiUrl?: string;
+};
+
+export const createApolloClient = ({
+  apiKey,
+  apiUrl = DEFAULT_API_URL,
+}: CreateApolloClientParams) =>
   new ApolloClient({
     cache: new InMemoryCache(),
     connectToDevTools: true,
-    link: from([authLink, httpLink]),
+    link: from([getAuthLink(apiKey), getHttpLink(apiUrl)]),
   });
-
-export const apolloClient = createApolloClient();

@@ -1,4 +1,4 @@
-import * as JeenyTypes from "../types/graphql";
+import * as JeenyTypes from "./graphql";
 
 export type ActionInputs = AppActionInputs &
   ArrivalActionInputs &
