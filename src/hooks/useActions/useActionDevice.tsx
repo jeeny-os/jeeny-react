@@ -11,11 +11,13 @@ export const useActionDevice = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<DeviceActionInputs>) => {
     switch (action) {
       case "device.deleteDevice": {
         return await deleteDevice({
+          ...mutationOptions,
           variables: values as {
             id: string;
           },
@@ -24,6 +26,7 @@ export const useActionDevice = () => {
 
       case "device.saveDevice": {
         return await saveDevice({
+          ...mutationOptions,
           variables: values as {
             id: string;
             data: JeenyTypes.DeviceUpdateInput;

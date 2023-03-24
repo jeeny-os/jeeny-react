@@ -11,17 +11,20 @@ export const useActionProduct = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<ProductActionInputs>) => {
     switch (action) {
       case "product.createProduct": {
         return await createProduct({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ProductInput },
         });
       }
 
       case "product.saveProduct": {
         return await saveProduct({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ProductUpdateInput },
         });
       }

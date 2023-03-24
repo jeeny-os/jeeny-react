@@ -9,6 +9,7 @@ import { GraphQLError } from "graphql";
 export const JeenyForm: React.FC<JeenyFormProps> = ({
   action,
   defaultValues,
+  mutationOptions,
   renderForm,
   reactHookFormProps = {},
 }) => {
@@ -35,6 +36,7 @@ export const JeenyForm: React.FC<JeenyFormProps> = ({
           const response = await submit({
             action,
             values,
+            mutationOptions,
           } as UseActionSubmit);
 
           setIsLoading(false);

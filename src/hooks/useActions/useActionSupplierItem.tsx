@@ -11,17 +11,20 @@ export const useActionSupplierItem = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<SupplierItemActionInputs>) => {
     switch (action) {
       case "supplierItem.createSupplierItem": {
         return await createSupplierItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.SupplierItemInput },
         });
       }
 
       case "supplierItem.saveSupplierItem": {
         return await saveSupplierItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.SupplierItemInputUpdate },
         });
       }

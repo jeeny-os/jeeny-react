@@ -21,11 +21,13 @@ export const useActionItemStorageInventoryAreaLocation = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<ItemStorageInventoryAreaLocationActionInputs>) => {
     switch (action) {
       case "itemStorageInventoryAreaLocation.createItemStorageInventoryAreaLocation": {
         return await createItemStorageInventoryAreaLocation({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.ItemStorageInventoryAreaLocationInput,
           },
@@ -34,6 +36,7 @@ export const useActionItemStorageInventoryAreaLocation = () => {
 
       case "itemStorageInventoryAreaLocation.saveItemStorageInventoryAreaLocation": {
         return await saveItemStorageInventoryAreaLocation({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.ItemStorageInventoryAreaLocationUpdateInput,
           },
@@ -42,6 +45,7 @@ export const useActionItemStorageInventoryAreaLocation = () => {
 
       case "itemStorageInventoryAreaLocation.deleteItemStorageInventoryAreaLocation": {
         return await deleteItemStorageInventoryAreaLocation({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.ItemStorageInventoryAreaLocationDeleteInput,
           },
@@ -50,6 +54,7 @@ export const useActionItemStorageInventoryAreaLocation = () => {
 
       case "itemStorageInventoryAreaLocation.handleItemStorageInventoryAreaLocation": {
         return await handleItemStorageInventoryAreaLocation({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.ItemStorageInventoryAreaLocationHandleInput,
           },

@@ -11,17 +11,20 @@ export const useActionTeam = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<TeamActionInputs>) => {
     switch (action) {
       case "team.createTeam": {
         return await createTeam({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.TeamInput },
         });
       }
 
       case "team.saveTeam": {
         return await saveTeam({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.TeamInputUpdate },
         });
       }

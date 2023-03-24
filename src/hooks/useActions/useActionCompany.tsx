@@ -10,11 +10,13 @@ export const useActionCompany = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<CompanyActionInputs>) => {
     switch (action) {
       case "company.saveCompany": {
         return await saveCompany({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.CompanyInput },
         });
       }

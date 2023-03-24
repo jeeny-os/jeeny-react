@@ -11,11 +11,13 @@ export const useActionInventoryRecord = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<InventoryRecordActionInputs>) => {
     switch (action) {
       case "inventoryRecord.addInventoryRecord": {
         return await addInventoryRecord({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.InventoryRecordAdditionInput,
           },
@@ -24,6 +26,7 @@ export const useActionInventoryRecord = () => {
 
       case "inventoryRecord.deductInventoryRecord": {
         return await deductInventoryRecord({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.InventoryRecordDeductionInput,
           },
