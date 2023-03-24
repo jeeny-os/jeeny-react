@@ -1,6 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import get from "lodash/get";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useApi } from "../..";
 import { TableListQueryInputs } from "../types/queryInputs";
@@ -13,26 +13,21 @@ export const JeenyTable: React.FC<
     JeenyTablePropsExtension<QueryResultTypes>
 > = ({ query, variables, columns, renderTable, tanstackTableProps }) => {
   const api = useApi();
-  const [data, setData] = useState([]);
+
+  const { query: queryRequest, data: queryData } = get(api, query);
+  const [_, endpoint] = query.split(".");
+
+  const queryDataResult = get(queryData, endpoint);
+  const data = get(queryDataResult, "items", queryDataResult || []);
 
   const callQuery = useCallback(async () => {
-    const queryToUse = get(api, query);
-
-    if (!queryToUse) {
+    if (!queryRequest) {
       return;
     }
 
-    const requestResults = await queryToUse.query({
+    await queryRequest({
       variables: variables as any,
     });
-    const [_, endpoint] = query.split(".");
-
-    const dataResult = get(requestResults, `data.${endpoint}`);
-
-    // not all list queries use ".items"
-    const data = get(dataResult, "items", dataResult || []);
-
-    setData(data);
   }, [query, variables]);
 
   useEffect(() => {
