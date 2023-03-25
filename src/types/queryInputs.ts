@@ -201,6 +201,7 @@ export type InstructionListQueryArgs = {
   "instruction.getInstructionExecutionsByExecutorId": JeenyTypes.QueryGetInstructionExecutionsByExecutorIdArgs;
   "instruction.getInstructionExecutionsByEventId": JeenyTypes.QueryGetInstructionExecutionsByEventIdArgs;
   "instruction.getInstructionExecutionsByTrigger": JeenyTypes.QueryGetInstructionExecutionsByTriggerArgs;
+  "instruction.getInstructionExecutionsBySubject": JeenyTypes.QueryGetInstructionExecutionsBySubjectArgs;
   "instruction.getInstructionExecutionsByInstructionTemplateId": JeenyTypes.QueryGetInstructionExecutionsByInstructionTemplateIdArgs;
   "instruction.getInstructionSubjectsBySubject": JeenyTypes.QueryGetInstructionSubjectsBySubjectArgs;
   "instruction.getInstructionSubjectsByTemplate": JeenyTypes.QueryGetInstructionSubjectsByTemplateArgs;

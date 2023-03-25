@@ -21,6 +21,7 @@ export type JeenyTablePropsExtension<T> = {
       id: DotNestedKeys<T[K]>;
       columnDef?: IdentifiedColumnDef<T[K], any>;
     }[];
+    filterFn?: (record: T[K]) => boolean;
     renderTable: ({ table }: { table: Table<T[K]> }) => React.ReactElement;
     // TODO don't love the any here
     tanstackTableProps?: Omit<
