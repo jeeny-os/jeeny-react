@@ -25,8 +25,6 @@ export type ActionInputs = AppActionInputs &
   SupplierItemActionInputs &
   TeamActionInputs;
 
-export type JeenyActions = keyof ActionInputs;
-
 export type AppActionInputs = {
   "app.createCustomApp": JeenyTypes.CustomAppInput;
   "app.saveCustomApp": JeenyTypes.CustomAppUpdateInput;

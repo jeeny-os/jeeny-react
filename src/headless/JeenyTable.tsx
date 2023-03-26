@@ -1,6 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import get from "lodash/get";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useApi } from "../..";
 import { TableListQueryInputs } from "../types/queryInputs";
@@ -19,9 +19,10 @@ export const JeenyTable: React.FC<
   renderTable,
   tanstackTableProps,
 }) => {
+  const [queryCompleted, setQueryCompleted] = useState(false);
   const api = useApi();
 
-  const { query: queryRequest, data: queryData } = get(api, query);
+  const { query: queryRequest, data: queryData, loading } = get(api, query);
   const [_, endpoint] = query.split(".");
 
   const queryDataResult = get(queryData, endpoint);
@@ -51,6 +52,12 @@ export const JeenyTable: React.FC<
   const callQuery = useCallback(async () => {
     return queryRequest({
       variables: variables as any,
+      onCompleted: () => {
+        setQueryCompleted(true);
+      },
+      onError: () => {
+        setQueryCompleted(true);
+      },
     });
   }, [query, variables]);
 
@@ -68,7 +75,13 @@ export const JeenyTable: React.FC<
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // TODO don't love the any here but having trouble because without it there is a union type of
-  // all the Jeeny record types
-  return <>{data.length === 0 ? null : renderTable({ table } as any)}</>;
+  return (
+    <>
+      {renderTable({
+        table,
+        isLoading: loading,
+        isEmpty: queryCompleted && data.length === 0,
+      })}
+    </>
+  );
 };

@@ -22,7 +22,14 @@ export type JeenyTablePropsExtension<T> = {
       columnDef?: IdentifiedColumnDef<T[K], any>;
     }[];
     filterFn?: (record: T[K]) => boolean;
-    renderTable: ({ table }: { table: Table<T[K]> }) => React.ReactElement;
+    renderTable: ({
+      isEmpty,
+      table,
+    }: {
+      isEmpty: boolean;
+      isLoading: boolean;
+      table: Table<T[K]>;
+    }) => React.ReactElement;
     // TODO don't love the any here
     tanstackTableProps?: Omit<
       TableOptions<any>,
