@@ -9,6 +9,7 @@ import { GraphQLError } from "graphql";
 export const JeenyForm: React.FC<JeenyFormProps> = ({
   action,
   defaultValues,
+  mutationOptions,
   renderForm,
   reactHookFormProps = {},
 }) => {
@@ -22,7 +23,7 @@ export const JeenyForm: React.FC<JeenyFormProps> = ({
   const submit = useAction();
 
   const onSubmit = (
-    success?: (result: any) => void,
+    success?: ({ result }: any) => void,
     failure?: (
       error: readonly GraphQLError[] | Partial<FieldErrorsImpl<any>>
     ) => void
@@ -35,6 +36,7 @@ export const JeenyForm: React.FC<JeenyFormProps> = ({
           const response = await submit({
             action,
             values,
+            mutationOptions,
           } as UseActionSubmit);
 
           setIsLoading(false);
@@ -46,7 +48,7 @@ export const JeenyForm: React.FC<JeenyFormProps> = ({
           }
 
           if (success) {
-            success(response);
+            success({ result: response });
           }
         } catch (e: any) {
           setIsLoading(false);

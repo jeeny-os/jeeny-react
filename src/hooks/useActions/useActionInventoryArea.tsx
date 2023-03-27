@@ -12,11 +12,13 @@ export const useActionInventoryArea = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<InventoryAreaActionInputs>) => {
     switch (action) {
       case "inventoryArea.createInventoryArea": {
         return await createInventoryArea({
+          ...mutationOptions,
           variables: values as {
             inventoryArea: JeenyTypes.FacilityInventoryAreaInput;
             rule: JeenyTypes.InventoryAreaRuleInput;
@@ -26,6 +28,7 @@ export const useActionInventoryArea = () => {
 
       case "inventoryArea.saveInventoryArea": {
         return await saveInventoryArea({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.FacilityInventoryAreaUpdateInput,
           },
@@ -34,6 +37,7 @@ export const useActionInventoryArea = () => {
 
       case "inventoryArea.deleteInventoryArea": {
         return await deleteInventoryArea({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.FacilityInventoryAreaDeleteInput,
           },

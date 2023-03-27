@@ -1,8 +1,10 @@
+import { MutationFunctionOptions } from "@apollo/client";
 import * as JeenyInputs from "../../types/actionInputs";
 import { useActionArrival } from "./useActionArrival";
 import { useActionCompany } from "./useActionCompany";
 import { useActionDevice } from "./useActionDevice";
 import { useActionDynamicContainer } from "./useActionDynamicContainer";
+import { useActionEvent } from "./useActionEvent";
 import { useActionFacility } from "./useActionFacility";
 import { useActionFacilityItem } from "./useActionFacilityItem";
 import { useActionInstruction } from "./useActionInstruction";
@@ -24,6 +26,7 @@ export type UseActionGeneric<T> = {
   [K in keyof T]-?: {
     action: NonNullable<K>;
     values: T[K];
+    mutationOptions?: MutationFunctionOptions;
   };
 }[keyof T];
 
@@ -34,6 +37,7 @@ export const useAction = () => {
   const useCompanySubmit = useActionCompany();
   const useDeviceSubmit = useActionDevice();
   const useDynamicContainerSubmit = useActionDynamicContainer();
+  const useEventSubmit = useActionEvent();
   const useFacilitySubmit = useActionFacility();
   const useFacilityItemSubmit = useActionFacilityItem();
   const useInstructionSubmit = useActionInstruction();
@@ -54,185 +58,173 @@ export const useAction = () => {
   const useSupplierItemSubmit = useActionSupplierItem();
   const useTeamSubmit = useActionTeam();
 
-  const submit = async ({ action, values }: UseActionSubmit) => {
+  const submit = async (props: UseActionSubmit) => {
     try {
       let result = null;
 
-      result = await useArrivalSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ArrivalActionInputs>);
+      result = await useArrivalSubmit(
+        props as UseActionGeneric<JeenyInputs.ArrivalActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useCompanySubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.CompanyActionInputs>);
+      result = await useCompanySubmit(
+        props as UseActionGeneric<JeenyInputs.CompanyActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useDeviceSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.DeviceActionInputs>);
+      result = await useDeviceSubmit(
+        props as UseActionGeneric<JeenyInputs.DeviceActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useDynamicContainerSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.DynamicContainerActionInputs>);
+      result = await useDynamicContainerSubmit(
+        props as UseActionGeneric<JeenyInputs.DynamicContainerActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useFacilitySubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.FacilityActionInputs>);
+      result = await useEventSubmit(
+        props as UseActionGeneric<JeenyInputs.EventActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useFacilityItemSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.FacilityItemActionInputs>);
+      result = await useFacilitySubmit(
+        props as UseActionGeneric<JeenyInputs.FacilityActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useInstructionSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.InstructionActionInputs>);
+      result = await useFacilityItemSubmit(
+        props as UseActionGeneric<JeenyInputs.FacilityItemActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useInventoryAreaSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.InventoryAreaActionInputs>);
+      result = await useInstructionSubmit(
+        props as UseActionGeneric<JeenyInputs.InstructionActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useInventoryRecordSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.InventoryRecordActionInputs>);
+      result = await useInventoryAreaSubmit(
+        props as UseActionGeneric<JeenyInputs.InventoryAreaActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useItemStorageInventoryAreaLocationSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ItemStorageInventoryAreaLocationActionInputs>);
+      result = await useInventoryRecordSubmit(
+        props as UseActionGeneric<JeenyInputs.InventoryRecordActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useItemStorageInventoryAreaRuleSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ItemStorageInventoryAreaRuleActionInputs>);
+      result = await useItemStorageInventoryAreaLocationSubmit(
+        props as UseActionGeneric<JeenyInputs.ItemStorageInventoryAreaLocationActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useItemSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ItemActionInputs>);
+      result = await useItemStorageInventoryAreaRuleSubmit(
+        props as UseActionGeneric<JeenyInputs.ItemStorageInventoryAreaRuleActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useItemGroupSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ItemGroupActionInputs>);
+      result = await useItemSubmit(
+        props as UseActionGeneric<JeenyInputs.ItemActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useKitSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.KitActionInputs>);
+      result = await useItemGroupSubmit(
+        props as UseActionGeneric<JeenyInputs.ItemGroupActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useProductSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.ProductActionInputs>);
+      result = await useKitSubmit(
+        props as UseActionGeneric<JeenyInputs.KitActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useStorageInventoryAreaLocationSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.StorageInventoryAreaLocationActionInputs>);
+      result = await useProductSubmit(
+        props as UseActionGeneric<JeenyInputs.ProductActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useStorageInventoryAreaRuleSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.StorageInventoryAreaRuleActionInputs>);
+      result = await useStorageInventoryAreaLocationSubmit(
+        props as UseActionGeneric<JeenyInputs.StorageInventoryAreaLocationActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useSupplierSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.SupplierActionInputs>);
+      result = await useStorageInventoryAreaRuleSubmit(
+        props as UseActionGeneric<JeenyInputs.StorageInventoryAreaRuleActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useSupplierItemSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.SupplierItemActionInputs>);
+      result = await useSupplierSubmit(
+        props as UseActionGeneric<JeenyInputs.SupplierActionInputs>
+      );
 
       if (result) {
         return result;
       }
 
-      result = await useTeamSubmit({
-        action,
-        values,
-      } as UseActionGeneric<JeenyInputs.TeamActionInputs>);
+      result = await useSupplierItemSubmit(
+        props as UseActionGeneric<JeenyInputs.SupplierItemActionInputs>
+      );
+
+      if (result) {
+        return result;
+      }
+
+      result = await useTeamSubmit(
+        props as UseActionGeneric<JeenyInputs.TeamActionInputs>
+      );
 
       if (result) {
         return result;

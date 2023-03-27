@@ -15,11 +15,13 @@ export const useActionStorageInventoryAreaRule = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<StorageInventoryAreaRuleActionInputs>) => {
     switch (action) {
       case "storageInventoryAreaRule.createStorageInventoryAreaRule": {
         return await createStorageInventoryAreaRule({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.StorageInventoryAreaRuleInput,
           },
@@ -28,6 +30,7 @@ export const useActionStorageInventoryAreaRule = () => {
 
       case "storageInventoryAreaRule.updateStorageInventoryAreaRule": {
         return await updateStorageInventoryAreaRule({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.StorageInventoryAreaRuleUpdateInput,
           },

@@ -11,17 +11,20 @@ export const useActionFacilityItem = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<FacilityItemActionInputs>) => {
     switch (action) {
       case "facilityItem.createFacilityItem": {
         return await createFacilityItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.FacilityItemInput },
         });
       }
 
       case "facilityItem.saveFacilityItem": {
         return await saveFacilityItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.FacilityItemUpdateInput },
         });
       }

@@ -172,6 +172,30 @@ export const GET_INSTRUCTION_EXECUTIONS_BY_EVENT_ID = gql`
   }
 `;
 
+export const GET_INSTRUCTION_EXECUTIONS_BY_SUBJECT = gql`
+  ${INSTRUCTION_EXECUTION_FRAGMENT}
+  query getInstructionExecutionsBySubject(
+    $subjectType: String!
+    $subjectId: String!
+    $limit: Float
+    $cursor: String
+    $filters: [QueryFilterInput!]
+  ) {
+    getInstructionExecutionsBySubject(
+      subjectType: $subjectType
+      subjectId: $subjectId
+      limit: $limit
+      cursor: $cursor
+      filters: $filters
+    ) {
+      cursor
+      items {
+        ...InstructionExecution
+      }
+    }
+  }
+`;
+
 export const GET_INSTRUCTION_EXECUTIONS_BY_TRIGGER = gql`
   ${INSTRUCTION_EXECUTION_FRAGMENT}
   query getInstructionExecutionsByTrigger(

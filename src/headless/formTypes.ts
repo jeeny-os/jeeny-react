@@ -20,7 +20,7 @@ import {
 } from "react-hook-form";
 import * as JeenyTypes from "../types/graphql";
 import { Split } from "../types/helpers";
-import { FetchResult } from "@apollo/client";
+import { FetchResult, MutationFunctionOptions } from "@apollo/client";
 import { ActionResults } from "../types/actionResults";
 import { ActionInputs } from "../types/actionInputs";
 import { GraphQLError } from "graphql";
@@ -31,6 +31,11 @@ export type JeenyFormProps = {
     action: NonNullable<K>;
     /** If you are using a save mutation then you should absolutely provide default values to the form, most importantly the `id` value. If you are using a create mutation you may also provide default values if you wish. */
     defaultValues?: Partial<ActionInputs[K]>;
+    /** Allows for passing Apollo mutation options to the submit function returned in the renderForm prop.
+     *
+     * Available options can be [seen here at the Apollo docs](https://www.apollographql.com/docs/react/data/mutations/#options)
+     */
+    mutationOptions?: MutationFunctionOptions;
     renderForm: (
       props: JeenyFormRenderProps<ActionInputs[K], K>
     ) => React.ReactElement;
@@ -40,23 +45,32 @@ export type JeenyFormProps = {
 }[keyof ActionInputs];
 
 export type JeenyFormFieldValues<T> = { [K in keyof T]: string };
+export type JeenyFormSubmitOnSuccessArgs<K extends keyof ActionResults> = {
+  result: FetchResult<
+    {
+      [index in Split<K, ".">[1]]: ActionResults[K];
+    },
+    Record<string, any>,
+    Record<string, any>
+  > | null;
+};
+
+export type JeenyFormSubmitOnSuccess<K extends keyof ActionResults> = ({
+  result,
+}: JeenyFormSubmitOnSuccessArgs<K>) => void;
+
+export type JeenyFormSubmitOnFailure<K extends keyof ActionResults> = (
+  error: readonly GraphQLError[] | Partial<FieldErrorsImpl<ActionResults[K]>>
+) => void;
+
+export type JeenyFormSubmitType<K extends keyof ActionResults> = (
+  onSuccess?: JeenyFormSubmitOnSuccess<K>,
+  onFailure?: JeenyFormSubmitOnFailure<K>
+) => Promise<null>;
 
 export type JeenyFormRenderProps<T, K extends keyof ActionResults> = {
   /** Will call the Jeeny API for the specified action using the input type for `values` */
-  submit: (
-    onSuccess?: (
-      result: FetchResult<
-        {
-          [index in Split<K, ".">[1]]: ActionResults[K];
-        },
-        Record<string, any>,
-        Record<string, any>
-      > | null
-    ) => void,
-    onFailure?: (
-      error: readonly GraphQLError[] | Partial<FieldErrorsImpl<any>>
-    ) => void
-  ) => Promise<null>;
+  submit: JeenyFormSubmitType<K>;
   isLoading: boolean;
   /** {@link https://react-hook-form.com/api/useform/watch React Hook Form docs} */
   watch: UseFormWatch<JeenyFormFieldValues<T>>;

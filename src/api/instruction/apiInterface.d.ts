@@ -34,6 +34,7 @@ import {
   QueryGetInstructionSubjectsBySubjectArgs,
   QueryGetInstructionSubjectsByTemplateArgs,
   MutationSaveInstructionExecutionArgs,
+  QueryGetInstructionExecutionsBySubjectArgs,
 } from "../../types/graphql";
 
 export interface InstructionTemplateApi {
@@ -161,6 +162,16 @@ export interface InstructionTemplateApi {
         getInstructionExecutionsByInstructionTemplateId: InstructionExecutionQueryResponse;
       },
       QueryGetInstructionExecutionsByInstructionTemplateIdArgs
+    >;
+  };
+
+  getInstructionExecutionsBySubject?: {
+    query?: DocumentNode;
+    options?: QueryFunctionOptions<
+      {
+        getInstructionExecutionsBySubject: InstructionExecutionQueryResponse;
+      },
+      QueryGetInstructionExecutionsBySubjectArgs
     >;
   };
 

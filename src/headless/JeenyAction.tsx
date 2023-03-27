@@ -5,6 +5,7 @@ import { JeenyActionProps } from "./actionTypes";
 
 export const JeenyAction: React.FC<JeenyActionProps> = ({
   action,
+  mutationOptions,
   renderChild,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,7 @@ export const JeenyAction: React.FC<JeenyActionProps> = ({
       const response = await submit({
         action,
         values,
+        mutationOptions,
       } as UseActionSubmit);
 
       setIsLoading(false);
