@@ -5,6 +5,7 @@ import {
   ApolloLink,
   from,
 } from "@apollo/client";
+import { isNil, omitBy } from "lodash";
 
 const DEFAULT_API_URL = "https://api.jeeny.com/headless";
 
@@ -15,14 +16,20 @@ const getHttpLink = (apiUrl: string) =>
 
 const getAuthLink = (apiKey: string, companyId?: string, user?: string) =>
   new ApolloLink((operation, forward) => {
-    operation.setContext(({ headers }: any) => ({
-      headers: {
+    operation.setContext(({ headers }: any) => {
+      const fullHeaders = {
         ...headers,
         authorization: apiKey,
-        companyid: companyId,
+        companyId,
         user,
-      },
-    }));
+      };
+
+      const cleanHeaders = omitBy(fullHeaders, isNil);
+
+      return {
+        headers: cleanHeaders,
+      };
+    });
 
     return forward(operation);
   });
