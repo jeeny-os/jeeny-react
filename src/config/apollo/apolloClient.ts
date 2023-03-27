@@ -13,14 +13,12 @@ const getHttpLink = (apiUrl: string) =>
     uri: apiUrl,
   });
 
-const getAuthLink = (apiKey: string, companyId?: string, user?: string) =>
+const getAuthLink = (apiKey: string) =>
   new ApolloLink((operation, forward) => {
     operation.setContext(({ headers }: any) => ({
       headers: {
         ...headers,
         authorization: apiKey,
-        companyid: companyId,
-        user,
       },
     }));
 
@@ -30,18 +28,14 @@ const getAuthLink = (apiKey: string, companyId?: string, user?: string) =>
 type CreateApolloClientParams = {
   apiKey: string;
   apiUrl?: string;
-  companyId?: string;
-  user?: string;
 };
 
 export const createApolloClient = ({
   apiKey,
   apiUrl = DEFAULT_API_URL,
-  companyId,
-  user,
 }: CreateApolloClientParams) =>
   new ApolloClient({
     cache: new InMemoryCache(),
     connectToDevTools: true,
-    link: from([getAuthLink(apiKey, companyId, user), getHttpLink(apiUrl)]),
+    link: from([getAuthLink(apiKey), getHttpLink(apiUrl)]),
   });
