@@ -26,17 +26,20 @@ export const useActionInstruction = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<InstructionActionInputs>) => {
     switch (action) {
       case "instruction.createInstructionTemplate": {
         return await createInstructionTemplate({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.InstructionTemplateInput },
         });
       }
 
       case "instruction.saveInstructionTemplate": {
         return await saveInstructionTemplate({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.InstructionTemplateUpdateInput,
           },
@@ -45,6 +48,7 @@ export const useActionInstruction = () => {
 
       case "instruction.addInstructionTemplateStepToInstructionTemplate": {
         return await addInstructionTemplateStepToInstructionTemplate({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.AddInstructionTemplateStepToInstructionTemplateInput,
           },
@@ -53,6 +57,7 @@ export const useActionInstruction = () => {
 
       case "instruction.saveInstructionTemplateStep": {
         return await saveInstructionTemplateStep({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.UpdateInstructionTemplateStepInput,
           },
@@ -61,6 +66,7 @@ export const useActionInstruction = () => {
 
       case "instruction.deleteInstructionTemplateStepFromInstructionTemplate": {
         return await deleteInstructionTemplateStepFromInstructionTemplate({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.DeleteInstructionTemplateStepFromInstructionTemplateInput,
           },
@@ -69,6 +75,7 @@ export const useActionInstruction = () => {
 
       case "instruction.executeInstructionTemplate": {
         return await executeInstructionTemplate({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.ExecuteInstructionTemplateInput,
           },
@@ -77,6 +84,7 @@ export const useActionInstruction = () => {
 
       case "instruction.saveInstructionExecution": {
         return await saveInstructionExecution({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.InstructionExecutionUpdateInput,
           },
@@ -85,6 +93,7 @@ export const useActionInstruction = () => {
 
       case "instruction.submitInstructionExecutionStep": {
         return await submitInstructionExecutionStep({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.SubmitInstructionExecutionStepInput,
           },
@@ -93,12 +102,14 @@ export const useActionInstruction = () => {
 
       case "instruction.createInstructionSubject": {
         return await createInstructionSubject({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.InstructionSubjectInput },
         });
       }
 
       case "instruction.saveInstructionSubject": {
         return await saveInstructionSubject({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.UpdateInstructionSubjectInput,
           },
@@ -106,6 +117,7 @@ export const useActionInstruction = () => {
       }
       case "instruction.deleteInstructionSubject": {
         return await deleteInstructionSubject({
+          ...mutationOptions,
           variables: {
             data: values as JeenyTypes.DeleteInstructionSubjectInput,
           },

@@ -12,16 +12,19 @@ export const useActionItem = () => {
   const submit = async ({
     action,
     values,
+    mutationOptions = {},
   }: UseActionGeneric<ItemActionInputs>) => {
     switch (action) {
       case "item.createItem": {
         return await createItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ItemInput },
         });
       }
 
       case "item.saveItem": {
         return await saveItem({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ItemInputUpdate },
         });
       }

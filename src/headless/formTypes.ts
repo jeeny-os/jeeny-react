@@ -20,7 +20,7 @@ import {
 } from "react-hook-form";
 import * as JeenyTypes from "../types/graphql";
 import { Split } from "../types/helpers";
-import { FetchResult } from "@apollo/client";
+import { FetchResult, MutationFunctionOptions } from "@apollo/client";
 import { ActionResults } from "../types/actionResults";
 import { ActionInputs } from "../types/actionInputs";
 import { GraphQLError } from "graphql";
@@ -31,6 +31,11 @@ export type JeenyFormProps = {
     action: NonNullable<K>;
     /** If you are using a save mutation then you should absolutely provide default values to the form, most importantly the `id` value. If you are using a create mutation you may also provide default values if you wish. */
     defaultValues?: Partial<ActionInputs[K]>;
+    /** Allows for passing Apollo mutation options to the submit function returned in the renderForm prop.
+     *
+     * Available options can be [seen here at the Apollo docs](https://www.apollographql.com/docs/react/data/mutations/#options)
+     */
+    mutationOptions?: MutationFunctionOptions;
     renderForm: (
       props: JeenyFormRenderProps<ActionInputs[K], K>
     ) => React.ReactElement;

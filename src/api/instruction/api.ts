@@ -10,6 +10,7 @@ import {
   GET_INSTRUCTION_EXECUTIONS_BY_EVENT_ID,
   GET_INSTRUCTION_EXECUTIONS_BY_EXECUTOR_ID,
   GET_INSTRUCTION_EXECUTIONS_BY_INSTRUCTION_TEMPLATE_ID,
+  GET_INSTRUCTION_EXECUTIONS_BY_SUBJECT,
   GET_INSTRUCTION_EXECUTIONS_BY_TRIGGER,
   GET_INSTRUCTION_EXECUTION_DETAILS,
   GET_INSTRUCTION_SUBJECTS_BY_SUBJECT,
@@ -194,6 +195,19 @@ export const useInstructionApi = (custom?: InstructionTemplateApi) => {
   );
 
   const [
+    getInstructionExecutionsBySubject,
+    {
+      data: getInstructionExecutionsBySubjectData,
+      loading: getInstructionExecutionsBySubjectLoading,
+      fetchMore: getInstructionExecutionsBySubjectFetchMore,
+    },
+  ] = useLazyQuery(
+    custom?.getInstructionExecutionsBySubject?.query ||
+      GET_INSTRUCTION_EXECUTIONS_BY_SUBJECT,
+    custom?.getInstructionExecutionsBySubject?.options
+  );
+
+  const [
     getInstructionExecutionsByExecutorId,
     {
       data: getInstructionExecutionsByExecutorIdData,
@@ -283,6 +297,12 @@ export const useInstructionApi = (custom?: InstructionTemplateApi) => {
       data: getInstructionExecutionsByTriggerData,
       loading: getInstructionExecutionsByTriggerLoading,
       fetchMore: getInstructionExecutionsByTriggerFetchMore,
+    },
+    getInstructionExecutionsBySubject: {
+      query: getInstructionExecutionsBySubject,
+      data: getInstructionExecutionsBySubjectData,
+      loading: getInstructionExecutionsBySubjectLoading,
+      fetchMore: getInstructionExecutionsBySubjectFetchMore,
     },
     getInstructionExecutionsByEventId: {
       query: getInstructionExecutionsByEventId,

@@ -12,23 +12,27 @@ export const useActionItemGroup = () => {
 
   const submit = async ({
     action,
+    mutationOptions = {},
     values,
   }: UseActionGeneric<ItemGroupActionInputs>) => {
     switch (action) {
       case "itemGroup.createItemGroup": {
         return await createItemGroup({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ItemGroupInput },
         });
       }
 
       case "itemGroup.saveItemGroup": {
         return await saveItemGroup({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ItemGroupUpdateInput },
         });
       }
 
       case "itemGroup.deleteItemGroup": {
         return await deleteItemGroup({
+          ...mutationOptions,
           variables: { data: values as JeenyTypes.ItemGroupDeleteInput },
         });
       }

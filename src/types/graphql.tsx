@@ -6,18 +6,12 @@ export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  {
-    [SubKey in K]?: Maybe<T[SubKey]>;
-  };
+  { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  {
-    [SubKey in K]: Maybe<T[SubKey]>;
-  };
+  { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> &
-  {
-    [P in K]-?: NonNullable<T[P]>;
-  };
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -184,14 +178,20 @@ export type App = {
   id: Scalars["String"];
   /** Is the app available for other users of the company. */
   isPublished: Scalars["Boolean"];
+  /** Used to enhance application search. */
+  keywords?: Maybe<Array<Scalars["String"]>>;
   /** The name of the app. */
   name: Scalars["String"];
   /** The version of the player this app should be played in. */
   playerVersion: Scalars["String"];
   /** The version number of the published app. */
   publishedAppVersion?: Maybe<Scalars["String"]>;
+  /** The ids of Apps that are similar in nature. */
+  relatedAppIds?: Maybe<Array<Scalars["String"]>>;
   /** Is the app currently available. active|inactive */
   status: Scalars["String"];
+  /** Media examples of the app for the app store. */
+  storeMedia?: Maybe<Array<AppStoreMedia>>;
   /** The date the App record was last updated. */
   updatedOn: Scalars["String"];
 };
@@ -204,6 +204,22 @@ export type AppMediaUploadInput = {
   id: Scalars["String"];
   /** Type of the media: config|image|video */
   type: Scalars["String"];
+};
+
+/** The App storeMedia record */
+export type AppStoreMedia = {
+  /** The type of the media. Must be one of image | video */
+  type: Scalars["String"];
+  /** The url of the media. */
+  url: Scalars["String"];
+};
+
+/** The App storeMedia record */
+export type AppStoreMediaInput = {
+  /** The type of the media. Must be one of image | video */
+  type: Scalars["String"];
+  /** The url of the media. */
+  url: Scalars["String"];
 };
 
 /** AppUsageLog record */
@@ -488,6 +504,8 @@ export type ArrivalDetailsWithStatus = {
 export type ArrivalInput = {
   /** The Items supplied by the Supplier in this Arrival. */
   arrivalLineItems?: InputMaybe<Array<ArrivalLineItemRecord>>;
+  /** The internal reference number for this Arrival. This is created by the system. Has effect only if use of external default ids is enabled for the company by the Jeeny team. */
+  arrivalNumber?: InputMaybe<Scalars["String"]>;
   /** The ArrivalReleases to be created at the time of Arrival creation. This is only used if the type is set to blanket. */
   arrivalReleases?: InputMaybe<Array<ArrivalReleaseRecordInput>>;
   /** A history of comments and events related to this Arrival. */
@@ -498,6 +516,8 @@ export type ArrivalInput = {
   externalNote?: InputMaybe<Scalars["String"]>;
   /** The ID of the Facility that this Arrival will be delivered to. */
   facilityId: Scalars["String"];
+  /** The ID of the Arrival record. Has effect only if use of external default ids is enabled for the company by the Jeeny team. */
+  id?: InputMaybe<Scalars["ID"]>;
   /** A note that can be viewed internally about the Arrival. */
   internalNote?: InputMaybe<Scalars["String"]>;
   /** The payment type agreed upon with the Supplier for this Arrival. */
@@ -1645,6 +1665,8 @@ export type Company = {
   companyAddress?: Maybe<Address>;
   /** Company Name */
   companyName: Scalars["String"];
+  /** Company Website */
+  companyWebsite: Scalars["String"];
   /** Company record creator */
   createdBy: Scalars["ID"];
   createdOn: Scalars["String"];
@@ -1666,6 +1688,8 @@ export type Company = {
   status: Scalars["String"];
   teams?: Maybe<Array<CompanyTeam>>;
   updatedOn: Scalars["String"];
+  /** Indicates if the company can use external ids as default ids on entities. Can be changed by the Jeeny team only. */
+  useExternalDefaultIds?: Maybe<Scalars["Boolean"]>;
 };
 
 export type CompanyInput = {
@@ -1673,6 +1697,8 @@ export type CompanyInput = {
   alias: Scalars["String"];
   checklist?: InputMaybe<Array<Scalars["String"]>>;
   companyName: Scalars["String"];
+  /** Company Website */
+  companyWebsite: Scalars["String"];
   /** The ISO code of the company's default currency */
   defaultCurrency: Scalars["String"];
   /** Decsribes the order of deductions in the books. */
@@ -1689,6 +1715,8 @@ export type CompanyInputUpdate = {
   checklist?: InputMaybe<Array<Scalars["String"]>>;
   companyAddress?: InputMaybe<AddressUpdateInput>;
   companyName?: InputMaybe<Scalars["String"]>;
+  /** Company Website */
+  companyWebsite?: InputMaybe<Scalars["String"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   /** JSON string of overrides for certain dropdowns in the application. {[dropdownName: string]: [{label: string; value: string}]} */
   customFields?: InputMaybe<Scalars["String"]>;
@@ -1938,12 +1966,18 @@ export type CustomAppUpdateInput = {
   iconUrl?: InputMaybe<Scalars["String"]>;
   /** The ID of the product you are updating. */
   id: Scalars["String"];
+  /** Used to enhance application search. */
+  keywords?: InputMaybe<Array<Scalars["String"]>>;
   /** The name of the app. */
   name?: InputMaybe<Scalars["String"]>;
   /** The version of the player this app should be played in. */
   playerVersion?: InputMaybe<Scalars["String"]>;
+  /** The ids of Apps that are similar in nature. */
+  relatedAppIds?: InputMaybe<Array<Scalars["String"]>>;
   /** Is the app currently available. active|inactive */
   status: Scalars["String"];
+  /** Media examples of the app for the app store. */
+  storeMedia?: InputMaybe<Array<AppStoreMediaInput>>;
 };
 
 export type CustomerPortal = {
@@ -2534,13 +2568,10 @@ export type DynamicContainerLoadInput = {
 /** DynamicContainerLocation record */
 export type DynamicContainerLocation = {
   /** The current location of the DynamicContainer. */
-  location: DynamicContainerLocationRecord;
+  location: InventoryAreaLocation;
+  /** The type of the location. */
   type: Scalars["String"];
 };
-
-export type DynamicContainerLocationRecord =
-  | InventoryAreaLocation
-  | PartialInventoryAreaLocation;
 
 /** DynamicContainerPayload record */
 export type DynamicContainerPayload = {
@@ -3143,7 +3174,7 @@ export type HeadlessUser = {
   createdOn: Scalars["String"];
   /** Jeeny headless user */
   id: Scalars["ID"];
-  /** The last time when the headless user attempted to log in from a device */
+  /** The last time when the headless user used the access token. */
   lastUsed?: Maybe<Scalars["String"]>;
   /** The first and last 4 characters of the access token */
   maskedToken: Scalars["String"];
@@ -3156,6 +3187,8 @@ export type HeadlessUser = {
 
 export type HeadlessUserInputUpdate = {
   id: Scalars["ID"];
+  /** The last time when the headless user used the access token. */
+  lastUsed?: InputMaybe<Scalars["String"]>;
   /** Is headless user still allowed access. active | inactive */
   status?: InputMaybe<Scalars["String"]>;
 };
@@ -3187,14 +3220,20 @@ export type InstalledApp = {
   installation: OfficialAppInstallation;
   /** Is the app available for other users of the company. */
   isPublished: Scalars["Boolean"];
+  /** Used to enhance application search. */
+  keywords?: Maybe<Array<Scalars["String"]>>;
   /** The name of the app. */
   name: Scalars["String"];
   /** The version of the player this app should be played in. */
   playerVersion: Scalars["String"];
   /** The version number of the published app. */
   publishedAppVersion?: Maybe<Scalars["String"]>;
+  /** The ids of Apps that are similar in nature. */
+  relatedAppIds?: Maybe<Array<Scalars["String"]>>;
   /** Is the app currently available. active|inactive */
   status: Scalars["String"];
+  /** Media examples of the app for the app store. */
+  storeMedia?: Maybe<Array<AppStoreMedia>>;
   /** The date the App record was last updated. */
   updatedOn: Scalars["String"];
 };
@@ -3943,6 +3982,8 @@ export type ItemInput = {
   description?: InputMaybe<Scalars["String"]>;
   /** Defines if the Item has an expiration day. If true the expiry date can be added to a Dynamic Container that contains this Item. */
   expirable?: InputMaybe<Scalars["Boolean"]>;
+  /** The ID of the Item. Has effect only if use of external default ids is enabled for the company by the Jeeny team. */
+  id?: InputMaybe<Scalars["String"]>;
   /** Create a list of inventory deduction strategies based on accounting principles used across the world. The system decides which deduction strategy to use based on a narrowing scheme. The inventory strategy attached to an Item is used when there is not a narrower option (for example, an inventory strategy on an FacilityItem). */
   inventoryStrategies?: InputMaybe<Array<InventoryStrategyInput>>;
   /** The group id to group variants of the same item. */
@@ -5830,15 +5871,6 @@ export type PartOptionSelection = {
   selectedOptionId: Scalars["String"];
 };
 
-/** PartialInventoryAreaLocation record */
-export type PartialInventoryAreaLocation = {
-  aisle?: Maybe<Scalars["String"]>;
-  bay?: Maybe<Scalars["String"]>;
-  /** The ID of the InventoryArea record. */
-  inventoryAreaId?: Maybe<Scalars["ID"]>;
-  shelf?: Maybe<Scalars["String"]>;
-};
-
 /** Partial storage location. This input was designed for use in facilities and warehouses. */
 export type PartialInventoryAreaLocationInput = {
   aisle?: InputMaybe<Scalars["String"]>;
@@ -6167,6 +6199,8 @@ export type Query = {
   getInstructionExecutionsByExecutorId?: Maybe<InstructionExecutionQueryResponse>;
   /** Returns all InstructionExecutions for a given executorId */
   getInstructionExecutionsByInstructionTemplateId: InstructionExecutionQueryResponse;
+  /** Returns all InstructionExecutions for a given subject */
+  getInstructionExecutionsBySubject: InstructionExecutionQueryResponse;
   /** Returns all InstructionExecutions for a given trigger */
   getInstructionExecutionsByTrigger: InstructionExecutionQueryResponse;
   /** Returns all InstructionSubjects for a given subject.  */
@@ -6683,6 +6717,14 @@ export type QueryGetInstructionExecutionsByInstructionTemplateIdArgs = {
   filters?: InputMaybe<Array<QueryFilterInput>>;
   instructionTemplateId: Scalars["String"];
   limit?: InputMaybe<Scalars["Float"]>;
+};
+
+export type QueryGetInstructionExecutionsBySubjectArgs = {
+  cursor?: InputMaybe<Scalars["String"]>;
+  filters?: InputMaybe<Array<QueryFilterInput>>;
+  limit?: InputMaybe<Scalars["Float"]>;
+  subjectId: Scalars["String"];
+  subjectType: Scalars["String"];
 };
 
 export type QueryGetInstructionExecutionsByTriggerArgs = {
@@ -8515,6 +8557,8 @@ export type ResolversTypes = {
   AddressUpdateInput: AddressUpdateInput;
   App: ResolverTypeWrapper<App>;
   AppMediaUploadInput: AppMediaUploadInput;
+  AppStoreMedia: ResolverTypeWrapper<AppStoreMedia>;
+  AppStoreMediaInput: AppStoreMediaInput;
   AppUsageLog: ResolverTypeWrapper<AppUsageLog>;
   AppUsageLogInput: AppUsageLogInput;
   Apps: ResolverTypeWrapper<Apps>;
@@ -8663,14 +8707,7 @@ export type ResolversTypes = {
   DynamicContainerDetachInput: DynamicContainerDetachInput;
   DynamicContainerInput: DynamicContainerInput;
   DynamicContainerLoadInput: DynamicContainerLoadInput;
-  DynamicContainerLocation: ResolverTypeWrapper<
-    Omit<DynamicContainerLocation, "location"> & {
-      location: ResolversTypes["DynamicContainerLocationRecord"];
-    }
-  >;
-  DynamicContainerLocationRecord:
-    | ResolversTypes["InventoryAreaLocation"]
-    | ResolversTypes["PartialInventoryAreaLocation"];
+  DynamicContainerLocation: ResolverTypeWrapper<DynamicContainerLocation>;
   DynamicContainerPayload: ResolverTypeWrapper<
     Omit<DynamicContainerPayload, "payload"> & {
       payload: ResolversTypes["DynamicContainerPayloadRecord"];
@@ -8830,7 +8867,6 @@ export type ResolversTypes = {
   OperatorInput: OperatorInput;
   OperatorInputUpdate: OperatorInputUpdate;
   PartOptionSelection: PartOptionSelection;
-  PartialInventoryAreaLocation: ResolverTypeWrapper<PartialInventoryAreaLocation>;
   PartialInventoryAreaLocationInput: PartialInventoryAreaLocationInput;
   Payment: ResolverTypeWrapper<Payment>;
   PaymentCreateCheckoutSessionInput: PaymentCreateCheckoutSessionInput;
@@ -8962,6 +8998,8 @@ export type ResolversParentTypes = {
   AddressUpdateInput: AddressUpdateInput;
   App: App;
   AppMediaUploadInput: AppMediaUploadInput;
+  AppStoreMedia: AppStoreMedia;
+  AppStoreMediaInput: AppStoreMediaInput;
   AppUsageLog: AppUsageLog;
   AppUsageLogInput: AppUsageLogInput;
   Apps: Apps;
@@ -9110,12 +9148,7 @@ export type ResolversParentTypes = {
   DynamicContainerDetachInput: DynamicContainerDetachInput;
   DynamicContainerInput: DynamicContainerInput;
   DynamicContainerLoadInput: DynamicContainerLoadInput;
-  DynamicContainerLocation: Omit<DynamicContainerLocation, "location"> & {
-    location: ResolversParentTypes["DynamicContainerLocationRecord"];
-  };
-  DynamicContainerLocationRecord:
-    | ResolversParentTypes["InventoryAreaLocation"]
-    | ResolversParentTypes["PartialInventoryAreaLocation"];
+  DynamicContainerLocation: DynamicContainerLocation;
   DynamicContainerPayload: Omit<DynamicContainerPayload, "payload"> & {
     payload: ResolversParentTypes["DynamicContainerPayloadRecord"];
   };
@@ -9273,7 +9306,6 @@ export type ResolversParentTypes = {
   OperatorInput: OperatorInput;
   OperatorInputUpdate: OperatorInputUpdate;
   PartOptionSelection: PartOptionSelection;
-  PartialInventoryAreaLocation: PartialInventoryAreaLocation;
   PartialInventoryAreaLocationInput: PartialInventoryAreaLocationInput;
   Payment: Payment;
   PaymentCreateCheckoutSessionInput: PaymentCreateCheckoutSessionInput;
@@ -9483,6 +9515,11 @@ export type AppResolvers<
   iconUrl?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   isPublished?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  keywords?: Resolver<
+    Maybe<Array<ResolversTypes["String"]>>,
+    ParentType,
+    ContextType
+  >;
   name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   playerVersion?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   publishedAppVersion?: Resolver<
@@ -9490,8 +9527,27 @@ export type AppResolvers<
     ParentType,
     ContextType
   >;
+  relatedAppIds?: Resolver<
+    Maybe<Array<ResolversTypes["String"]>>,
+    ParentType,
+    ContextType
+  >;
   status?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  storeMedia?: Resolver<
+    Maybe<Array<ResolversTypes["AppStoreMedia"]>>,
+    ParentType,
+    ContextType
+  >;
   updatedOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AppStoreMediaResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["AppStoreMedia"] = ResolversParentTypes["AppStoreMedia"]
+> = {
+  type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -10695,6 +10751,7 @@ export type CompanyResolvers<
     ContextType
   >;
   companyName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  companyWebsite?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   createdOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   customFields?: Resolver<
@@ -10737,6 +10794,11 @@ export type CompanyResolvers<
     ContextType
   >;
   updatedOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  useExternalDefaultIds?: Resolver<
+    Maybe<ResolversTypes["Boolean"]>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -11309,23 +11371,12 @@ export type DynamicContainerLocationResolvers<
   ParentType extends ResolversParentTypes["DynamicContainerLocation"] = ResolversParentTypes["DynamicContainerLocation"]
 > = {
   location?: Resolver<
-    ResolversTypes["DynamicContainerLocationRecord"],
+    ResolversTypes["InventoryAreaLocation"],
     ParentType,
     ContextType
   >;
   type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type DynamicContainerLocationRecordResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["DynamicContainerLocationRecord"] = ResolversParentTypes["DynamicContainerLocationRecord"]
-> = {
-  __resolveType: TypeResolveFn<
-    "InventoryAreaLocation" | "PartialInventoryAreaLocation",
-    ParentType,
-    ContextType
-  >;
 };
 
 export type DynamicContainerPayloadResolvers<
@@ -11890,6 +11941,11 @@ export type InstalledAppResolvers<
     ContextType
   >;
   isPublished?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
+  keywords?: Resolver<
+    Maybe<Array<ResolversTypes["String"]>>,
+    ParentType,
+    ContextType
+  >;
   name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   playerVersion?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   publishedAppVersion?: Resolver<
@@ -11897,7 +11953,17 @@ export type InstalledAppResolvers<
     ParentType,
     ContextType
   >;
+  relatedAppIds?: Resolver<
+    Maybe<Array<ResolversTypes["String"]>>,
+    ParentType,
+    ContextType
+  >;
   status?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  storeMedia?: Resolver<
+    Maybe<Array<ResolversTypes["AppStoreMedia"]>>,
+    ParentType,
+    ContextType
+  >;
   updatedOn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -14518,21 +14584,6 @@ export type OperatorAccessResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PartialInventoryAreaLocationResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes["PartialInventoryAreaLocation"] = ResolversParentTypes["PartialInventoryAreaLocation"]
-> = {
-  aisle?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  bay?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  inventoryAreaId?: Resolver<
-    Maybe<ResolversTypes["ID"]>,
-    ParentType,
-    ContextType
-  >;
-  shelf?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type PaymentResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Payment"] = ResolversParentTypes["Payment"]
@@ -15116,6 +15167,15 @@ export type QueryResolvers<
     RequireFields<
       QueryGetInstructionExecutionsByInstructionTemplateIdArgs,
       "instructionTemplateId"
+    >
+  >;
+  getInstructionExecutionsBySubject?: Resolver<
+    ResolversTypes["InstructionExecutionQueryResponse"],
+    ParentType,
+    ContextType,
+    RequireFields<
+      QueryGetInstructionExecutionsBySubjectArgs,
+      "subjectId" | "subjectType"
     >
   >;
   getInstructionExecutionsByTrigger?: Resolver<
@@ -17127,6 +17187,7 @@ export type Resolvers<ContextType = any> = {
   AccessType?: AccessTypeResolvers<ContextType>;
   Address?: AddressResolvers<ContextType>;
   App?: AppResolvers<ContextType>;
+  AppStoreMedia?: AppStoreMediaResolvers<ContextType>;
   AppUsageLog?: AppUsageLogResolvers<ContextType>;
   Apps?: AppsResolvers<ContextType>;
   Arrival?: ArrivalResolvers<ContextType>;
@@ -17202,7 +17263,6 @@ export type Resolvers<ContextType = any> = {
   Dimensions?: DimensionsResolvers<ContextType>;
   DynamicContainer?: DynamicContainerResolvers<ContextType>;
   DynamicContainerLocation?: DynamicContainerLocationResolvers<ContextType>;
-  DynamicContainerLocationRecord?: DynamicContainerLocationRecordResolvers<ContextType>;
   DynamicContainerPayload?: DynamicContainerPayloadResolvers<ContextType>;
   DynamicContainerPayloadRecord?: DynamicContainerPayloadRecordResolvers<ContextType>;
   DynamicContainerQueryResponse?: DynamicContainerQueryResponseResolvers<ContextType>;
@@ -17294,7 +17354,6 @@ export type Resolvers<ContextType = any> = {
   OfficialAppInstallation?: OfficialAppInstallationResolvers<ContextType>;
   Operator?: OperatorResolvers<ContextType>;
   OperatorAccess?: OperatorAccessResolvers<ContextType>;
-  PartialInventoryAreaLocation?: PartialInventoryAreaLocationResolvers<ContextType>;
   Payment?: PaymentResolvers<ContextType>;
   PfepAccessControls?: PfepAccessControlsResolvers<ContextType>;
   PresignedPost?: PresignedPostResolvers<ContextType>;
@@ -17372,10 +17431,6 @@ export interface PossibleTypesResultData {
 const result: PossibleTypesResultData = {
   possibleTypes: {
     BidItem: ["BidItemGroupRecord", "BidItemRecord"],
-    DynamicContainerLocationRecord: [
-      "InventoryAreaLocation",
-      "PartialInventoryAreaLocation",
-    ],
     DynamicContainerPayloadRecord: ["ItemDynamicContainerPayload"],
     ResultListByStatus: [
       "InvitationFulfilledPromise",
