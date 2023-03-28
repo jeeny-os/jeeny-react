@@ -47,7 +47,7 @@ export const JeenyTable: React.FC<
     }
 
     return data;
-  }, [queryDataResult]);
+  }, [queryDataResult, filterFn]);
 
   const callQuery = useCallback(async () => {
     return queryRequest({
