@@ -51,6 +51,8 @@ export const INSTRUCTION_EXECUTION_FRAGMENT = gql`
     instructionTemplateId
     eventId
     executorId
+    subjectType
+    subjectId
     triggerSource
     triggerSourceId
   }

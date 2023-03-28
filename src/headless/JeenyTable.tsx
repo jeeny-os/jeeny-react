@@ -1,6 +1,6 @@
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import get from "lodash/get";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useApi } from "../..";
 import { TableListQueryInputs } from "../types/queryInputs";
@@ -11,22 +11,53 @@ import { JeenyTableProps, JeenyTablePropsExtension } from "./tableTypes";
 export const JeenyTable: React.FC<
   JeenyTableProps<TableListQueryInputs> &
     JeenyTablePropsExtension<QueryResultTypes>
-> = ({ query, variables, columns, renderTable, tanstackTableProps }) => {
+> = ({
+  query,
+  variables,
+  filterFn,
+  columns,
+  renderTable,
+  tanstackTableProps,
+}) => {
+  const [queryCompleted, setQueryCompleted] = useState(false);
   const api = useApi();
 
-  const { query: queryRequest, data: queryData } = get(api, query);
+  const { query: queryRequest, data: queryData, loading } = get(api, query);
   const [_, endpoint] = query.split(".");
 
   const queryDataResult = get(queryData, endpoint);
-  const data = get(queryDataResult, "items", queryDataResult || []);
+  const data = useMemo(() => {
+    let data = [];
 
-  const callQuery = useCallback(async () => {
-    if (!queryRequest) {
-      return;
+    switch (query) {
+      case "event.getEvents":
+      case "event.getEventsByAssigneeId":
+        data = [
+          ...get(queryDataResult, "singleEvents", []),
+          ...get(queryDataResult, "recurringEvents", []),
+        ];
+        break;
+
+      default:
+        data = get(queryDataResult, "items", queryDataResult || []);
     }
 
-    await queryRequest({
+    if (filterFn) {
+      data = data.filter(filterFn);
+    }
+
+    return data;
+  }, [queryDataResult, filterFn]);
+
+  const callQuery = useCallback(async () => {
+    return queryRequest({
       variables: variables as any,
+      onCompleted: () => {
+        setQueryCompleted(true);
+      },
+      onError: () => {
+        setQueryCompleted(true);
+      },
     });
   }, [query, variables]);
 
@@ -44,7 +75,13 @@ export const JeenyTable: React.FC<
     getCoreRowModel: getCoreRowModel(),
   });
 
-  // TODO don't love the any here but having trouble because without it there is a union type of
-  // all the Jeeny record types
-  return <>{data.length === 0 ? null : renderTable({ table } as any)}</>;
+  return (
+    <>
+      {renderTable({
+        table,
+        isLoading: loading,
+        isEmpty: queryCompleted && data.length === 0,
+      })}
+    </>
+  );
 };

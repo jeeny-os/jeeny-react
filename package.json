@@ -6,7 +6,9 @@
     "type": "git",
     "url": "git+https://github.com/jeeny-os/jeeny-react.git"
   },
-  "author": "",
+  "author": {
+    "name": "Jeeny Inc"
+  },
   "license": "ISC",
   "publishConfig": {
     "access": "public"

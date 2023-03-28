@@ -111,6 +111,7 @@ export type InstructionQueryResultTypes = {
   "instruction.getInstructionExecutionsByExecutorId": JeenyTypes.InstructionExecution;
   "instruction.getInstructionExecutionsByEventId": JeenyTypes.InstructionExecution;
   "instruction.getInstructionExecutionsByTrigger": JeenyTypes.InstructionExecution;
+  "instruction.getInstructionExecutionsBySubject": JeenyTypes.InstructionExecution;
   "instruction.getInstructionExecutionsByInstructionTemplateId": JeenyTypes.InstructionExecution;
   "instruction.getInstructionSubjectsBySubject": JeenyTypes.InstructionSubject;
   "instruction.getInstructionSubjectsByTemplate": JeenyTypes.InstructionSubject;
