@@ -59,6 +59,7 @@ export {
 export { useSupplierApi } from "./supplier/api";
 export { useSupplierItemApi } from "./supplierItem/api";
 export { useTeamApi } from "./team/api";
+export { useFilesApi } from "./files/api";
 
 export const useApi = () => {
   const appApi = useAppApi();
