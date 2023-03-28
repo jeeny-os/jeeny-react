@@ -1,13 +1,14 @@
 {
   "name": "@jeeny/jeeny-react",
-  "version": "1.0.1",
-  "description": "React components and API for Jeeny Headless",
+  "version": "1.0.2",
+  "description": "React components and API for the Jeeny API",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeeny-os/jeeny-react.git"
   },
   "author": {
-    "name": "Jeeny Inc"
+    "name": "Jeeny Inc",
+    "url": "https://jeeny.com"
   },
   "license": "ISC",
   "publishConfig": {
