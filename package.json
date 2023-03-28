@@ -1,7 +1,7 @@
 {
   "name": "@jeeny/jeeny-react",
   "version": "1.0.2",
-  "description": "React components and API for the Jeeny API",
+  "description": "React components and hooks for the Jeeny API",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeeny-os/jeeny-react.git"
